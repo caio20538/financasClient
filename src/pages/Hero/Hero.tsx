@@ -41,17 +41,6 @@ export const Hero: React.FC = () => {
           height: "100vh",
         }}
       >
-        {/* Anúncio lateral esquerdo */}
-        <div
-          style={{
-            flex: "0 0 150px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-          }}
-        >
-        </div>
 
         {/* Container principal */}
         <Container
@@ -114,18 +103,6 @@ export const Hero: React.FC = () => {
             )}
           </S.formConverter>
         </Container>
-
-        {/* Anúncio lateral direito */}
-        <div
-          style={{
-            flex: "0 0 150px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-          }}
-        >
-        </div>
       </div>
     </S.hero>
   );
