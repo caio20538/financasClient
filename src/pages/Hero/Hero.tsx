@@ -90,7 +90,8 @@ export const Hero: React.FC = () => {
             <S.selectConverter
               id="tipo-tempo"
               value={tipoTempo}
-              onChange={(e) => setTipoTempo(e.target.value)}
+              onChange={(e) => setTipoTempo(e.target.value as string)}
+              variant="standard"
             >
               <MenuItem value="year">Ano</MenuItem>
               <MenuItem value="month">Mês</MenuItem>
