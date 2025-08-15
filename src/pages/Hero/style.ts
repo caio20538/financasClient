@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { Select as MuiSelect } from "@mui/material";
 
 export const hero = styled("div")(() => ({
