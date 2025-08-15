@@ -2,7 +2,7 @@ import { Button, Container, Typography, Alert, MenuItem } from "@mui/material";
 import * as S from "./style";
 import { useState } from "react";
 import { theme } from "../../styles/theme";
-import { api } from "../../services/api"; // importando Axios
+import { api } from "../../services/api";
 
 export const Hero: React.FC = () => {
   const [taxa, setTaxa] = useState("");
@@ -33,71 +33,99 @@ export const Hero: React.FC = () => {
 
   return (
     <S.hero>
-      <Container
-        maxWidth="lg"
-        sx={{
+      {/* Wrapper geral para anúncios + container */}
+      <div
+        style={{
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
+          width: "100%",
+          height: "100vh",
         }}
       >
-        <S.formConverter onSubmit={handleSubmit}>
-          <Typography color={theme.palette.secondary.main} variant="h6" gutterBottom>
-            Convertor de Taxa equivalente para Taxa Nominal
-          </Typography>
+        {/* Anúncio lateral esquerdo */}
+        <div
+          style={{
+            flex: "0 0 150px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+          }}
+        >
+        </div>
 
-          <S.labelConverter htmlFor="taxa">Taxa</S.labelConverter>
-          <S.inputConverter
-            type="number"
-            placeholder="taxa"
-            id="taxa"
-            value={taxa}
-            onChange={(e) => setTaxa(e.target.value)}
-          />
+        {/* Container principal */}
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <S.formConverter onSubmit={handleSubmit}>
+            <Typography color={theme.palette.secondary.main} variant="h6" gutterBottom>
+              Convertor de Taxa equivalente para Taxa Nominal
+            </Typography>
 
-          <S.labelConverter htmlFor="tempo">Tempo</S.labelConverter>
-          <S.inputConverter
-            type="number"
-            placeholder="tempo"
-            id="tempo"
-            value={tempo}
-            onChange={(e) => setTempo(e.target.value)}
-          />
+            <S.labelConverter htmlFor="taxa">Taxa</S.labelConverter>
+            <S.inputConverter
+              type="number"
+              placeholder="taxa"
+              id="taxa"
+              value={taxa}
+              onChange={(e) => setTaxa(e.target.value)}
+            />
 
-          <S.labelConverter htmlFor="tipo-tempo">Período</S.labelConverter>
-          <S.selectConverter
-            id="tipo-tempo"
-            value={tipoTempo}
-            onChange={(e) => setTipoTempo(e.target.value)}
-          >
-            <MenuItem value="year">Ano</MenuItem>
-            <MenuItem value="month">Mês</MenuItem>
-            <MenuItem value="day">Dia</MenuItem>
-          </S.selectConverter>
+            <S.labelConverter htmlFor="tempo">Tempo</S.labelConverter>
+            <S.inputConverter
+              type="number"
+              placeholder="tempo"
+              id="tempo"
+              value={tempo}
+              onChange={(e) => setTempo(e.target.value)}
+            />
 
-          <Button type="submit" variant="contained" color="primary" sx={{ alignSelf: "center" }}>
-            Enviar
-          </Button>
-
-          {resultado && (
-            <Alert
-              severity="success"
-              sx={{ marginTop: 2, justifyContent: "center", textAlign: "center", width: "100%" }}
+            <S.labelConverter htmlFor="tipo-tempo">Período</S.labelConverter>
+            <S.selectConverter
+              id="tipo-tempo"
+              value={tipoTempo}
+              onChange={(e) => setTipoTempo(e.target.value)}
             >
-              Taxa Nominal Calculada: {resultado}
-            </Alert>
-          )}
-          {erro && (
-            <Alert
-              severity="error"
-              sx={{ marginTop: 2, justifyContent: "center", textAlign: "center", width: "100%" }}
-            >
-              {erro}
-            </Alert>
-          )}
-        </S.formConverter>
-      </Container>
+              <MenuItem value="year">Ano</MenuItem>
+              <MenuItem value="month">Mês</MenuItem>
+              <MenuItem value="day">Dia</MenuItem>
+            </S.selectConverter>
+
+            <Button type="submit" variant="contained" color="primary" sx={{ alignSelf: "center" }}>
+              Enviar
+            </Button>
+
+            {resultado && (
+              <Alert severity="success" sx={{ marginTop: 2, textAlign: "center" }}>
+                Taxa Nominal Calculada: {resultado}
+              </Alert>
+            )}
+            {erro && (
+              <Alert severity="error" sx={{ marginTop: 2, textAlign: "center" }}>
+                {erro}
+              </Alert>
+            )}
+          </S.formConverter>
+        </Container>
+
+        {/* Anúncio lateral direito */}
+        <div
+          style={{
+            flex: "0 0 150px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+          }}
+        >
+        </div>
+      </div>
     </S.hero>
   );
 };
