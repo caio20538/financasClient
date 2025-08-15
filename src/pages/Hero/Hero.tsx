@@ -1,4 +1,4 @@
-import { Button, Container, Typography, Alert, MenuItem } from "@mui/material";
+import { Button, Container, Typography, Alert, MenuItem, CircularProgress } from "@mui/material";
 import * as S from "./style";
 import { useState } from "react";
 import { theme } from "../../styles/theme";
@@ -10,11 +10,13 @@ export const Hero: React.FC = () => {
   const [tipoTempo, setTipoTempo] = useState("year");
   const [resultado, setResultado] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // ✅ novo estado
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setResultado(null);
     setErro(null);
+    setLoading(true); // inicia loading
 
     const data = {
       equivalentRate: Number(taxa),
@@ -28,29 +30,17 @@ export const Hero: React.FC = () => {
     } catch (err) {
       setErro("Falha ao calcular a taxa. Verifique os dados e tente novamente.");
       console.error(err);
+    } finally {
+      setLoading(false); // termina loading
     }
   };
 
   return (
     <S.hero>
-      {/* Wrapper geral para anúncios + container */}
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "100vh",
-        }}
-      >
-
-        {/* Container principal */}
+      <div style={{ display: "flex", width: "100%", height: "100vh" }}>
         <Container
           maxWidth="lg"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
+          sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}
         >
           <S.formConverter onSubmit={handleSubmit}>
             <Typography color={theme.palette.secondary.main} variant="h6" gutterBottom>
@@ -87,8 +77,14 @@ export const Hero: React.FC = () => {
               <MenuItem value="day">Dia</MenuItem>
             </S.selectConverter>
 
-            <Button type="submit" variant="contained" color="primary" sx={{ alignSelf: "center" }}>
-              Enviar
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ alignSelf: "center" }}
+              disabled={loading} // desabilita botão enquanto carrega
+            >
+              {loading ? <CircularProgress size={24} color="inherit" /> : "Enviar"}
             </Button>
 
             {resultado && (
